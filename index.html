@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="theme-color" content="#FDF7EE" />
 <title>Habuild · Box Breathing Skill Assessment</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
 <!-- Mixpanel official loader snippet -->
@@ -40,30 +43,37 @@
   }
 
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   body {
     font-family: var(--font-sans);
     color: var(--ink-2);
-    background: #E9DECF;
+    background: var(--bg-cream);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
+    min-height: 100dvh;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .stage {
-    flex: 1;
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px 24px 48px;
+    min-height: 100dvh;
+    padding: 0;
+    display: block;
   }
 
   .phone {
-    width: 360px; height: 780px;
+    width: 100%;
+    max-width: 480px;
+    height: 100dvh;
+    min-height: 100dvh;
     background: var(--bg-cream);
     overflow: hidden;
     position: relative;
-    box-shadow: 0 12px 40px -16px rgba(15,23,42,0.25);
-    border-radius: 8px;
+    margin: 0 auto;
+    box-shadow: none;
+    border-radius: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
   .phone-screen {
     width: 100%; height: 100%;
@@ -86,7 +96,7 @@
   }
 
   .icon-btn {
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     background: rgba(255,255,255,0.55);
     backdrop-filter: blur(8px);
     border: 0; cursor: pointer;
@@ -119,8 +129,8 @@
   }
   .cta-ghost:hover { background: var(--acc-50);}
 
-  .footer-cta { padding: 0 24px 26px; margin-top: auto;}
-  .dual-cta { display: flex; gap: 10px; padding: 0 24px 26px; margin-top: auto;}
+  .footer-cta { padding: 0 24px calc(26px + env(safe-area-inset-bottom)); margin-top: auto;}
+  .dual-cta { display: flex; gap: 10px; padding: 0 24px calc(26px + env(safe-area-inset-bottom)); margin-top: auto;}
   .dual-cta .cta { flex: 1;}
 
   /* 1 INTRO */
@@ -270,7 +280,7 @@
     font: 700 12px var(--font-sans); color: var(--ink-3);
     text-transform: uppercase; letter-spacing: 0.22em;
   }
-  .hold-cta-wrap { padding: 0 24px 28px; width: 100%;}
+  .hold-cta-wrap { padding: 0 24px calc(28px + env(safe-area-inset-bottom)); width: 100%;}
   .hold-helper {
     font: 400 14px/1.55 var(--font-sans); color: var(--ink-2);
     text-align: center;
@@ -504,7 +514,7 @@
   }
   .breathing-bottom {
     position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 60px 0 28px;
+    padding: 60px 0 calc(28px + env(safe-area-inset-bottom));
     display: flex; flex-direction: column; align-items: center; gap: 10px;
     z-index: 2;
   }
@@ -603,7 +613,7 @@
     text-align: center;
   }
   .complete-bottom {
-    padding: 0 24px 28px;
+    padding: 0 24px calc(28px + env(safe-area-inset-bottom));
     display: flex; flex-direction: column; align-items: center; gap: 18px;
     z-index: 2; position: relative;
   }
