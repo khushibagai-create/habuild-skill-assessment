@@ -14,6 +14,9 @@
       window.location.protocol === 'file:');
   const MIXPANEL_ENABLED = !isLocalhost;
 
+  const log = (...args) => console.info('[hb-analytics]', ...args);
+  log('boot · enabled =', MIXPANEL_ENABLED, '· host =', window.location.hostname);
+
   const SCREEN_MAP = {
     1: 'intro',
     2: 'how_it_works',
@@ -60,14 +63,17 @@
   }
 
   function initMixpanel() {
-    if (!MIXPANEL_ENABLED || typeof mixpanel === 'undefined') return;
+    if (!MIXPANEL_ENABLED) { log('init skipped (localhost)'); return; }
+    if (typeof mixpanel === 'undefined') { log('init FAILED — mixpanel global missing'); return; }
     mixpanel.init(MIXPANEL_TOKEN, {
-      debug: false,
+      debug: true,
       track_pageview: false,
       persistence: 'localStorage',
-      ignore_dnt: true
+      ignore_dnt: true,
+      loaded: () => log('mixpanel real lib loaded · distinct_id =', mixpanel.get_distinct_id && mixpanel.get_distinct_id())
     });
     state.initialized = true;
+    log('init OK · token =', MIXPANEL_TOKEN.slice(0, 6) + '…');
   }
 
   function registerSuperProps(extra) {
@@ -85,7 +91,7 @@
   }
 
   function identifyUser(name, phone, firstTime) {
-    if (!state.initialized) return;
+    if (!state.initialized) { log('identify skipped (not init)'); return; }
     state.name = name;
     state.phone = phone;
     mixpanel.identify(phone);
@@ -94,12 +100,14 @@
     mixpanel.people.set(profile);
     registerSuperProps();
     state.identified = true;
+    log('identified ·', name, '·', phone, '· firstTime =', !!firstTime);
   }
 
   window.track = safe(function (event, props) {
-    if (!MIXPANEL_ENABLED) return;
-    if (!state.initialized) return;
-    if (!state.phone) return; // gate: no events before identity
+    if (!MIXPANEL_ENABLED) { log('track skipped (disabled):', event); return; }
+    if (!state.initialized) { log('track skipped (not init):', event); return; }
+    if (!state.phone) { log('track skipped (no identity):', event); return; }
+    log('→ track:', event, props || {});
     mixpanel.track(event, props || {});
   });
 
