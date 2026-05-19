@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Habuild · Box Breathing Skill Assessment</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mixpanel-browser@2.55.0/dist/mixpanel.min.js"></script>
+<script src="analytics.js" defer></script>
 <style>
   :root {
     --bg-cream:       #FDF7EE;
@@ -639,7 +641,7 @@
           </div>
         </div>
         <div class="footer-cta">
-          <button class="cta" onclick="go(2)">Take the Challenge →</button>
+          <button class="cta" onclick="go(2)" data-track="cta" data-cta-label="Take the Challenge" data-cta-location="intro">Take the Challenge →</button>
         </div>
       </div>
 
@@ -647,7 +649,7 @@
       <div class="screen" data-step="2">
         <div class="peach-header">
           <div class="peach-row">
-            <button class="icon-btn" onclick="go(1)">←</button>
+            <button class="icon-btn" onclick="go(1)" data-track="back" data-cta-label="Back" data-cta-location="how_it_works">←</button>
           </div>
           <div class="peach-eyebrow">BEFORE YOU START</div>
           <h2>How the<br>Test Works</h2>
@@ -669,7 +671,7 @@
           </div>
         </div>
         <div class="footer-cta">
-          <button class="cta" onclick="startInhale()">Start Test →</button>
+          <button class="cta" onclick="startInhale()" data-track="cta" data-cta-label="Start Test" data-cta-location="how_it_works">Start Test →</button>
         </div>
       </div>
 
@@ -677,7 +679,7 @@
       <div class="screen" data-step="3">
         <div class="plain-scene">
           <div class="plain-top">
-            <button class="icon-btn" onclick="go(2)">←</button>
+            <button class="icon-btn" onclick="go(2)" data-track="back" data-cta-label="Back" data-cta-location="breathe_in">←</button>
           </div>
           <div class="plain-header-block">
             <div class="plain-eyebrow">STEP 1</div>
@@ -704,7 +706,7 @@
       <div class="screen" data-step="4">
         <div class="plain-scene">
           <div class="plain-top">
-            <button class="icon-btn" onclick="go(2)">←</button>
+            <button class="icon-btn" onclick="go(2)" data-track="back" data-cta-label="Back" data-cta-location="hold">←</button>
           </div>
           <div class="plain-header-block">
             <div class="plain-eyebrow">STEP 2 · NOW HOLD</div>
@@ -716,7 +718,7 @@
             <div class="hold-unit">SECONDS</div>
           </div>
           <div class="hold-cta-wrap">
-            <button class="cta" onclick="stopHold()">⏹  Stop</button>
+            <button class="cta" onclick="stopHold()" data-track="cta" data-cta-label="Stop" data-cta-location="hold">⏹  Stop</button>
             <div class="hold-helper">When you're ready to breathe out, tap Stop.</div>
           </div>
         </div>
@@ -743,7 +745,7 @@
       <div class="screen" data-step="6">
         <div class="peach-header result-peach">
           <div class="peach-row">
-            <button class="icon-btn" onclick="restart()">←</button>
+            <button class="icon-btn" onclick="restart()" data-track="back" data-cta-label="Back" data-cta-location="result">←</button>
           </div>
           <h2 id="resultDuration">2 min</h2>
           <div class="sub">Breathing</div>
@@ -775,15 +777,15 @@
           </div>
         </div>
         <div class="dual-cta">
-          <button class="cta cta-ghost" onclick="restart()">Try again</button>
-          <button class="cta" onclick="startBreathing()">Start Now</button>
+          <button class="cta cta-ghost" onclick="restart()" data-track="cta" data-cta-label="Try again" data-cta-location="result">Try again</button>
+          <button class="cta" onclick="startBreathing()" data-track="cta" data-cta-label="Start Now" data-cta-location="result">Start Now</button>
         </div>
       </div>
 
       <!-- 7 ACTIVE BREATHING -->
       <div class="screen breathing-screen" data-step="7">
         <div class="breathing-top">
-          <button class="breathing-icon-btn" onclick="go(6)">←</button>
+          <button class="breathing-icon-btn" onclick="go(6)" data-track="back" data-cta-label="Back" data-cta-location="active_breathing">←</button>
         </div>
         <div class="breathing-canvas">
           <div class="breathing-box" id="liveBox">
@@ -808,7 +810,7 @@
       <div class="screen" data-step="8">
         <div class="complete-scene">
           <div class="complete-top">
-            <button class="icon-btn" onclick="restart()">←</button>
+            <button class="icon-btn" onclick="restart()" data-track="back" data-cta-label="Back" data-cta-location="complete">←</button>
           </div>
           <div class="complete-content">
             <div class="polaroid-wrap">
@@ -824,7 +826,7 @@
             </div>
           </div>
           <div class="complete-bottom">
-            <button class="share-cta" onclick="restart()">Done</button>
+            <button class="share-cta" onclick="restart()" data-track="cta" data-cta-label="Done" data-cta-location="complete">Done</button>
           </div>
         </div>
       </div>
