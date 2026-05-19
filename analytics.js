@@ -66,11 +66,11 @@
     if (!MIXPANEL_ENABLED) { log('init skipped (localhost)'); return; }
     if (typeof mixpanel === 'undefined') { log('init FAILED — mixpanel global missing'); return; }
     mixpanel.init(MIXPANEL_TOKEN, {
-      debug: true,
+      debug: false,
       track_pageview: false,
       persistence: 'localStorage',
       ignore_dnt: true,
-      loaded: () => log('mixpanel real lib loaded · distinct_id =', mixpanel.get_distinct_id && mixpanel.get_distinct_id())
+      loaded: () => log('mixpanel loaded · distinct_id =', mixpanel.get_distinct_id && mixpanel.get_distinct_id())
     });
     state.initialized = true;
     log('init OK · token =', MIXPANEL_TOKEN.slice(0, 6) + '…');
