@@ -51,15 +51,12 @@
   }
 
   function normalizePhone(raw) {
-    const digits = String(raw || '').replace(/\D/g, '');
-    if (digits.length === 12 && digits.startsWith('91')) return digits.slice(2);
-    if (digits.length === 11 && digits.startsWith('0')) return digits.slice(1);
-    return digits;
+    return String(raw || '').replace(/\D/g, '');
   }
 
   function validPhone(raw) {
     const d = normalizePhone(raw);
-    return /^[6-9]\d{9}$/.test(d);
+    return d.length >= 7 && d.length <= 15;
   }
 
   function initMixpanel() {
@@ -183,7 +180,7 @@
         </div>
         <div class="hb-id-field">
           <label for="hb-id-phone">Phone number</label>
-          <input id="hb-id-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile" />
+          <input id="hb-id-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="With country code if outside India" />
           <div class="hb-id-err" id="hb-id-err"></div>
         </div>
         <button class="hb-id-btn" id="hb-id-submit">Start the test</button>
@@ -202,7 +199,7 @@
       const name = (nameEl.value || '').trim();
       const phoneRaw = (phoneEl.value || '').trim();
       if (name.length < 2) { errEl.textContent = 'Please enter your name.'; nameEl.focus(); return; }
-      if (!validPhone(phoneRaw)) { errEl.textContent = 'Enter a valid 10-digit Indian mobile.'; phoneEl.focus(); return; }
+      if (!validPhone(phoneRaw)) { errEl.textContent = 'Please enter a valid phone number.'; phoneEl.focus(); return; }
       const phone = normalizePhone(phoneRaw);
       localStorage.setItem('user_name', name);
       localStorage.setItem('user_phone', phone);
